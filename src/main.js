@@ -6,9 +6,8 @@ import { evaluateAI } from './evaluator.js';
 import { convertJsToBlocks } from './jsToBlocks.js';
 import { t } from './i18n.js';
 
+
 const STORAGE_JS_KEY = 'tictactoe_js_input'; // Persistence
-
-
 
 const workspace = initBlockly('blocklyDiv');
 const ui = new UIManager();
