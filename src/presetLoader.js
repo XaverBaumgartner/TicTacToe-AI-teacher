@@ -1,5 +1,5 @@
 // imports all .js files from src/presets/
-const presetModules = import.meta.glob('./presets/*.js', { as: 'raw', eager: true });
+const presetModules = import.meta.glob('./presets/*.js', { query: '?raw', import: 'default', eager: true });
 
 export const presets = Object.fromEntries(
   Object.entries(presetModules)
