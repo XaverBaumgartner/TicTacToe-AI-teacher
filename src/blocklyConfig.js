@@ -291,20 +291,20 @@ export function initBlockly(containerId) {
     },
   });
 
-  // Allow raw JS block
   workspace.registerToolboxCategoryCallback('PROCEDURE_CUSTOM', (workspace) => {
-    const items = [];
+    const items = [
+      {
+        kind: 'block',
+        type: 'raw_js'
+      },
+      {
+        kind: 'sep',
+        gap: 24
+      }
+    ];
 
-    const rawJsBlock = document.createElement('block');
-    rawJsBlock.setAttribute('type', 'raw_js');
-    items.push(rawJsBlock);
-
-    const sep = document.createElement('sep');
-    sep.setAttribute('gap', '24');
-    items.push(sep);
-
-    // Add standard blocks
-    const procedureBlocks = Blockly.Procedures.flyoutCategory(workspace);
+    // Add standard blocks (pass false as second argument to get JSON instead of XML)
+    const procedureBlocks = Blockly.Procedures.flyoutCategory(workspace, false);
     return items.concat(procedureBlocks);
   });
 
