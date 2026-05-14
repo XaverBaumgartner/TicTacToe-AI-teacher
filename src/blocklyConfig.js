@@ -295,15 +295,13 @@ export function initBlockly(containerId) {
   workspace.registerToolboxCategoryCallback('PROCEDURE_CUSTOM', (workspace) => {
     const items = [];
 
-    items.push({
-      kind: 'block',
-      type: 'raw_js'
-    });
+    const rawJsBlock = document.createElement('block');
+    rawJsBlock.setAttribute('type', 'raw_js');
+    items.push(rawJsBlock);
 
-    items.push({
-      kind: 'sep',
-      gap: '24'
-    });
+    const sep = document.createElement('sep');
+    sep.setAttribute('gap', '24');
+    items.push(sep);
 
     // Add standard blocks
     const procedureBlocks = Blockly.Procedures.flyoutCategory(workspace);
