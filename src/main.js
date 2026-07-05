@@ -191,6 +191,8 @@ document.addEventListener('mousemove', (e) => {
       workspaceContainer.style.flex = '1';
     } else if (newWidth > 200) {
       dashboard.classList.remove('hidden');
+      toggleDashboardBtn.style.display = 'none';
+      resizer.style.display = 'block';
       workspaceContainer.style.flex = `0 0 ${newWidth}px`;
     }
   } else {
@@ -204,6 +206,8 @@ document.addEventListener('mousemove', (e) => {
       workspaceContainer.style.flex = '1';
     } else if (newHeight > 200) {
       dashboard.classList.remove('hidden');
+      toggleDashboardBtn.style.display = 'none';
+      resizer.style.display = 'block';
       workspaceContainer.style.flex = `0 0 ${newHeight}px`;
     }
   }
