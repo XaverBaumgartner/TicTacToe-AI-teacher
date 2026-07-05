@@ -159,3 +159,75 @@ if (savedJs) {
 ui.updateBoard(game);
 updateCodePreview();
 triggerEvaluation();
+
+// --- Resizer Logic ---
+const resizer = document.getElementById('resizer');
+const workspaceContainer = document.getElementById('workspace-container');
+const toggleDashboardBtn = document.getElementById('toggle-dashboard-btn');
+const dashboard = document.getElementById('dashboard');
+
+let isResizing = false;
+const MIN_DASHBOARD_WIDTH = 280;
+const MIN_DASHBOARD_HEIGHT = 200;
+
+resizer.addEventListener('mousedown', (e) => {
+  isResizing = true;
+  resizer.classList.add('active');
+  document.body.style.cursor = window.innerWidth > 1024 ? 'col-resize' : 'row-resize';
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isResizing) return;
+  
+  if (window.innerWidth > 1024) {
+    const newWidth = e.clientX;
+    const remainingWidth = window.innerWidth - newWidth;
+    
+    if (remainingWidth < MIN_DASHBOARD_WIDTH) {
+      dashboard.classList.add('hidden');
+      toggleDashboardBtn.style.display = 'flex';
+      resizer.style.display = 'none';
+      workspaceContainer.style.flex = '1';
+    } else if (newWidth > 200) {
+      dashboard.classList.remove('hidden');
+      workspaceContainer.style.flex = `0 0 ${newWidth}px`;
+    }
+  } else {
+    const newHeight = e.clientY;
+    const remainingHeight = window.innerHeight - newHeight;
+    
+    if (remainingHeight < MIN_DASHBOARD_HEIGHT) {
+      dashboard.classList.add('hidden');
+      toggleDashboardBtn.style.display = 'flex';
+      resizer.style.display = 'none';
+      workspaceContainer.style.flex = '1';
+    } else if (newHeight > 200) {
+      dashboard.classList.remove('hidden');
+      workspaceContainer.style.flex = `0 0 ${newHeight}px`;
+    }
+  }
+  
+  window.dispatchEvent(new Event('resize'));
+});
+
+document.addEventListener('mouseup', () => {
+  if (isResizing) {
+    isResizing = false;
+    resizer.classList.remove('active');
+    document.body.style.cursor = '';
+  }
+});
+
+toggleDashboardBtn.addEventListener('click', () => {
+  dashboard.classList.remove('hidden');
+  toggleDashboardBtn.style.display = 'none';
+  resizer.style.display = 'block';
+  
+  if (window.innerWidth > 1024) {
+    workspaceContainer.style.flex = `0 0 ${window.innerWidth - 400}px`;
+  } else {
+    workspaceContainer.style.flex = `0 0 ${window.innerHeight - 400}px`;
+  }
+  window.dispatchEvent(new Event('resize'));
+});
