@@ -12,7 +12,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TicTacToe AI Teacher</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#4A90E2">
+
+
 </head>
+
 
 <body>
   <div id="app">
@@ -126,6 +136,17 @@ if (getBoard()[4] === null) {
   </div>
   <div id="notification"></div>
   <script type="module" src="/src/main.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+                .then((reg) => console.log('Service Worker registriert!', reg))
+                .catch((err) => console.error('Service Worker Fehler:', err));
+      });
+    }
+  </script>
+
 </body>
 
 </html>
